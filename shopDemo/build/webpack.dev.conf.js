@@ -1,9 +1,12 @@
 'use strict'
 const utils = require('./utils')
+//使用webpack
 const webpack = require('webpack')
+/*获取config/index.js中的默认配置，config后面没有配置项会自动找index.js*/
 const config = require('../config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
+// 一个可以插入 html 并且创建新的 .html 文件的插件
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
