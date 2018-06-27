@@ -11,5 +11,7 @@ export default {
 </script>
 
 <style>
-
+.box_bottom{
+  text-align: center;
+}
 </style>
