@@ -55,8 +55,10 @@ const state = {
   //将要加入购物车的商品对象
   addShoplist:{},
   //购物车里的商品数组
-  shopCartlist:[
-  ]
+  shopCartlist:[],
+  //支付的列表
+  PaymentList:[],
+  OrderList:[]
 }
 
 const getters={
@@ -84,16 +86,21 @@ const mutations = {
     }
     for(var i=0;i<state.shopCartlist.length;i++){
       if(state.shopCartlist[i].id==data.id){
-          state.shopCartlist[i].num=state.shopCartlist[i].num+data.num;
-          return;
-        }
+        state.shopCartlist[i].num=data.num;
+        return;
       }
-
-    state.shopCartlist=state.shopCartlist.concat(data);
     }
+    state.shopCartlist=state.shopCartlist.concat(data);
+  },
 
-
+  addPaylist(state,data){
+    state.PaymentList=state.PaymentList.concat(data);
+  },
+  addOrderList(state,data){
+    state.OrderList=state.OrderList.concat(data);
   }
+
+}
 
 
 

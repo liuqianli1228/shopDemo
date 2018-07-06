@@ -4,18 +4,16 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import store from './stores';
-import { AlertPlugin } from 'vux'
 import 'weui'
 import 'mint-ui/lib/style.css'
 import MintUI from 'mint-ui'
 import Icon from 'vue-svg-icon/Icon.vue';
 Vue.component('icon', Icon);
 Vue.use(MintUI)
-Vue.use(AlertPlugin)
 
 Vue.config.productionTip = false
+Vue.config.devtools = true
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

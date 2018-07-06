@@ -20,13 +20,13 @@
       </div>
 
       <div class="box_bottom">
-          <div class="bottom_left">
-            合计:
-            <span style="color:#ff0000;">¥ {{count*goods.price}}</span>
-          </div>
-          <div class="bottom_right" @click="goPay()">
-                立即支付
-          </div>
+        <div class="bottom_left">
+          合计:
+          <span style="color:#ff0000;">¥ {{count*goods.price}}</span>
+        </div>
+        <div class="bottom_right" @click="goPay()">
+          立即支付
+        </div>
       </div>
 
     </div>
@@ -50,96 +50,101 @@
 
     },
     methods:{
-        addCartClick(){
-          this.$store.commit("addCartClick")
-        },
-        plus(){
-          this.count+=1;
-        },
-        minus(){
-          if(this.count>1)this.count-=1;
-        },
-        goPay(){
-          this.goods.num=0;
-          var list=this.goods;
-          list.num= this.count;
-          this.count=1;
-          this.$store.commit('addCartlist',list);
-          this.$store.commit("handleClick");
-          this.addCartClick();
-          this.$store.state.shop.current='2';
-          this.$router.push({ path:'/shop/shopCart'});
+      addCartClick(){
+        this.$store.commit("addCartClick")
+        this.count=1;
+      },
+      plus(){
+        this.count++;
+      },
+      minus(){
+        if(this.count>1)this.count--;
+      },
+      goPay(){
+        if(this.goods.num){
+          this.goods.num=this.count+this.goods.num;
+          this.$set(this.goods,"num",this.goods.num)
+        }else{
+          this.$set(this.goods,"num", this.count)
         }
+        this.$set(this.goods,'checkStatus',false);
+        this.$store.commit('addCartlist',this.goods);
+        this.$store.commit("handleClick");
+        this.count=1;
+        this.addCartClick();
+        this.$store.state.shop.current='2';
+        this.$router.push({ path:'/shop/shopCart'});
+      }
     },
   };
 </script>
 
 <style scoped>
 
-*{border-sizing:border-box;margin: 0px;padding: 0px;}
-svg{
+  *{border-sizing:border-box;margin: 0px;padding: 0px;}
+  svg{
     color:#449fdb;
     margin-top: 3.1rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     float: left;
   }
-.goods_box{
-  position:fixed;
-  bottom:0;
-  background:#ffffff;
-  height:12rem;
-  width: 100%;
-  font-size: 16px;
-}
-.box_top{
-  height: 8rem;
-  width: 100%;
-}
-.top_left{
-  width: 60%;
-  height: 8rem;
-  float:left;
-}
-.top_left img{
-  width:50%;
-  height: 100%;
-  float:left;
-}
-.top_left div{
-  width:49%;
-  height:4rem;
-  line-height:4rem;
-  float:left;
-}
-.top_right{
-  float:right;
-  width:30%;
-  height: 100%;
-}
-.box_bottom{
-  height: 4rem;
-  width: 100%;
-  border-top: 1px solid #f3f3f3;
-}
-.bottom_left{
-  height: 100%;
-  width: 40%;
-  float:left;
-  margin-left: 0.5rem;
-  line-height:4rem
-}
-.bottom_right{
-  height: 100%;
-  width: 50%;
-  float: right;
-  background:#e8380d;
-  color:#ffffff;
-  text-align: center;
-  line-height:4rem
-}
-.icon_color{
-  color: grey;
-}
+  .goods_box{
+    position:fixed;
+    bottom:0;
+    background:#ffffff;
+    height:12rem;
+    width: 100%;
+    font-size: 16px;
+  }
+  .box_top{
+    height: 8rem;
+    width: 100%;
+  }
+  .top_left{
+    width: 60%;
+    height: 8rem;
+    float:left;
+  }
+  .top_left img{
+    width:50%;
+    height: 100%;
+    float:left;
+  }
+  .top_left div{
+    width:49%;
+    height:4rem;
+    line-height:4rem;
+    float:left;
+  }
+  .top_right{
+    float:right;
+    width:30%;
+    height: 100%;
+  }
+  .box_bottom{
+    height: 4rem;
+    width: 100%;
+    border-top: 1px solid #f3f3f3;
+  }
+  .bottom_left{
+    height: 100%;
+    width: 40%;
+    float:left;
+    margin-left: 0.5rem;
+    line-height:4rem
+  }
+  .bottom_right{
+    height: 100%;
+    width: 50%;
+    float: right;
+    background:#e8380d;
+    color:#ffffff;
+    text-align: center;
+    line-height:4rem
+  }
+  .icon_color{
+    color: grey;
+  }
 
 </style>
